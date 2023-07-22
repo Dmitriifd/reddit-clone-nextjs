@@ -7,11 +7,13 @@ import { CreateSubredditPayload } from '@/lib/validators/subreddit';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
+import { useCustomToasts } from '@/hooks/use-custom-toasts';
 import { useState } from 'react';
 
 const Page = () => {
   const router = useRouter();
   const [input, setInput] = useState<string>('');
+  const { loginToast } = useCustomToasts();
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -40,6 +42,9 @@ const Page = () => {
           });
         }
 
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
       }
 
       toast({
