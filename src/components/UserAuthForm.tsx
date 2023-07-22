@@ -6,19 +6,26 @@ import * as React from 'react';
 import { FC } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Icons } from './Icons';
+import { useToast } from '@/hooks/use-toast';;
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const loginWithGoogle = async () => {
     setIsLoading(true);
 
     try {
+      // throw new Error()
       await signIn('google');
     } catch (error) {
-      // toast notification
+      toast({
+        title: 'Error',
+        description: 'There was an error logging in with Google',
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }
