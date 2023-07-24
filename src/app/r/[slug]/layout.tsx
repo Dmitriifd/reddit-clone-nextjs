@@ -1,3 +1,4 @@
+import SubscribeLeaveToggle from '@/components/SubscribeLeaveToggle';
 import { buttonVariants } from '@/components/ui/Button';
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
@@ -92,6 +93,13 @@ const Layout = async ({
                 </div>
               ) : null}
 
+              {subreddit.creatorId !== session?.user?.id ? (
+                <SubscribeLeaveToggle
+                  isSubscribed={isSubscribed}
+                  subredditId={subreddit.id}
+                  subredditName={subreddit.name}
+                />
+              ) : null}
               <Link
                 className={buttonVariants({
                   variant: 'outline',
