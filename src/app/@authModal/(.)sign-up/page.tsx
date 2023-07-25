@@ -13,11 +13,11 @@ const page: FC<pageProps> = ({}) => {
             <CloseModal />
           </div>
 
-          <SignUp />
+          <SignUp isModal={true} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default page
